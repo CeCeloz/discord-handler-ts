@@ -1,6 +1,4 @@
-# This is a open-source template of a discord bot on typescript
-
-> Updated to discord.js v14.14.1
+> uses discord.js v14.14.1
 
 ## Setup
 
