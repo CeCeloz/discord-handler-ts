@@ -1,0 +1,24 @@
+{
+  "name": "zing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/Index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm tsc",
+    "start": "tsx src/Index.ts",
+    "start:dev": "tsx watch src/Index.ts"
+  },
+  "keywords": [],
+  "author": "celoz",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "fs": "0.0.1-security",
+    "tsx": "^4.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.3"
+  }
+}
