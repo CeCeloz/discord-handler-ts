@@ -2,6 +2,7 @@ import {Events, Message} from "discord.js";
 import {Event} from "../models/Event.js";
 
 const event: Event = {
+    name: "SendHiOnChat",
     eventType: Events.MessageCreate,
     once: false,
     execute: (message: Message) => {
