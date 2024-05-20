@@ -22,7 +22,7 @@ export async function deployCommands() {
                 console.log(`[WARNING] The command at ${file} is missing a required "data" or "execute" property.`);
             }
 
-            const data = await rest.put(
+            await rest.put(
                 Routes.applicationCommands(process.env.CLIENT_ID),
                 {body: commands},
             );
