@@ -1,10 +1,10 @@
-import {Client, Collection, CommandInteraction, Events, Interaction, REST, Routes} from "discord.js";
+import {Client, Collection, Events, Interaction, REST, Routes} from "discord.js";
 import {readdirSync} from "fs";
 import {Event} from "../models/Event.js";
 
 const rest = new REST().setToken(process.env.BOT_TOKEN);
 const commands = []
-const commandsCollection: Collection<String,any> = new Collection();
+const commandsCollection: Collection<String, any> = new Collection();
 
 export async function deployCommands() {
 
@@ -35,7 +35,7 @@ export async function deployCommands() {
         }
     }
 
-};
+}
 
 const handlerInteraction: Event = {
     name: "handlerInteraction",
