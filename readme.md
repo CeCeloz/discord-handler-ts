@@ -11,7 +11,7 @@ This section tracks the ongoing development updates and features added to the bo
 ### Features:
 
 - ~~Create events~~
-- Create slash commands
+- ~~Create slash commands~~
 - Create chat commands
 
 ## Contributing
