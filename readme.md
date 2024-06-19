@@ -8,12 +8,6 @@ to install the requirements just init on you prefer package manager.
 
 This section tracks the ongoing development updates and features added to the bot.
 
-### Features:
-
-- ~~Create events~~
-- ~~Create slash commands~~
-- Create chat commands
-
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
