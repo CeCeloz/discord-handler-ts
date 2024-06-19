@@ -2,8 +2,8 @@ import {Client, Collection, Events, Interaction, REST, Routes} from "discord.js"
 import {readdirSync} from "fs";
 import {Event} from "../models/Event.js";
 
-const rest = new REST().setToken(process.env.BOT_TOKEN);
-const commands = []
+const rest: REST = new REST().setToken(process.env.BOT_TOKEN as string);
+const commands: any[] = []
 const commandsCollection: Collection<String, any> = new Collection();
 
 export async function deployCommands() {
@@ -23,7 +23,7 @@ export async function deployCommands() {
             }
 
             await rest.put(
-                Routes.applicationCommands(process.env.CLIENT_ID),
+                Routes.applicationCommands(process.env.CLIENT_ID as string),
                 {body: commands},
             );
 

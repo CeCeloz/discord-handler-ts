@@ -13,10 +13,10 @@
   "author": "celoz",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.14.1",
+    "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "fs": "0.0.1-security",
-    "tsx": "^4.7.1"
+    "tsx": "^4.15.2"
   },
   "devDependencies": {
     "typescript": "^5.4.3"

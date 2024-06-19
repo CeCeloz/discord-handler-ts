@@ -6,7 +6,7 @@ const event: Event = {
     eventType: Events.ClientReady,
     once: true,
     execute: (client: Client) => {
-        console.log(`Logged in as ${client.user.tag}`);
+        console.log(`Logged in as ${client.user?.tag}`);
     }
 }
 
