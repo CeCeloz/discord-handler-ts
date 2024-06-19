@@ -23,3 +23,5 @@ lerna-debug.log*
 dist/
 
 .vscode/
+
+.idea/
