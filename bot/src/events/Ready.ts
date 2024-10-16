@@ -1,5 +1,5 @@
 import {Client, Events} from "discord.js";
-import {Event} from "../models/Event.js";
+import {Event} from "../../../core/src/models/Event.js";
 
 const event: Event = {
     name: "eventReady",

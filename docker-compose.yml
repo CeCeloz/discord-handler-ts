@@ -1,0 +1,13 @@
+services:
+  discord-bot:
+    build: .
+    container_name: discord-bot
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: '1.0'

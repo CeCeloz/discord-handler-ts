@@ -1,17 +1,16 @@
 import {
     CommandInteraction,
-    SlashCommandBuilder,
-    PermissionFlagsBits,
     CommandInteractionOptionResolver,
-    TextChannel,
-    MessageResolvable
+    MessageResolvable,
+    PermissionFlagsBits,
+    SlashCommandBuilder,
+    TextChannel
 } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('clear')
     .setDescription('This command is used to clear some messages on chat')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-    .setDMPermission(false)
     .addNumberOption(options => options
         .setName("amount")
         .setDescription("provide the amount of messages to be cleared")
