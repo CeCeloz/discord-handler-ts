@@ -1,14 +1,12 @@
-import {Client, Events} from "discord.js";
-import {Event} from "../../../core/src/models/Event.js";
+import {ClientEvents, Events, GuildMember, TextChannel, ThreadChannel} from "discord.js";
+import Event from "../../../core/src/models/Event.js";
 
-const event: Event = {
-    name: "eventReady",
-    eventType: Events.ClientReady,
-    once: true,
-    execute: (client: Client) => {
-        console.log(`Logged in as ${client.user?.tag}`);
+export default class ReadyEvent extends Event {
+    name = "ready";
+    eventType: keyof ClientEvents = Events.ClientReady;
+    once = false;
+
+    async execute(member: GuildMember) {
+
     }
 }
-
-
-export default event;

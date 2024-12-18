@@ -1,23 +1,6 @@
-import {
-    ButtonInteraction,
-    StringSelectMenuInteraction,
-    UserSelectMenuInteraction,
-    RoleSelectMenuInteraction,
-    MentionableSelectMenuInteraction,
-    ChannelSelectMenuInteraction,
-    ModalSubmitInteraction,
-} from 'discord.js';
+import {Component, MessageComponentInteraction, ModalSubmitInteraction} from 'discord.js';
 
-export type CustomIdInteraction =
-    | ButtonInteraction
-    | StringSelectMenuInteraction
-    | UserSelectMenuInteraction
-    | RoleSelectMenuInteraction
-    | MentionableSelectMenuInteraction
-    | ChannelSelectMenuInteraction
-    | ModalSubmitInteraction;
-
-export interface Component {
-    customId: string;
-    execute: (interaction: CustomIdInteraction) => Promise<void>;
+export default abstract class Components extends Component {
+    customId?: string;
+    abstract execute(interaction: MessageComponentInteraction | ModalSubmitInteraction): void | Promise<void>;
 }

@@ -1,14 +1,10 @@
+import Components from "../../../core/src/models/Component.js";
 import {ButtonInteraction} from "discord.js";
 
+export default class reviewStarComponent extends Components {
+    customId = "test"
 
-const button =  {
-    customId: 'confirm',
-    execute: async (interaction: ButtonInteraction ): Promise<void> => {
-        await interaction.update({
-            content: 'Button Clicked',
-            components: [],
-        });
+    async execute(interaction: ButtonInteraction) {
+
     }
-};
-
-export default button;
+}

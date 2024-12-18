@@ -1,9 +1,9 @@
-import { ClientEvents } from "discord.js";
+import {ClientEvents} from "discord.js";
 
-export interface Event {
-    name: string;
-    eventType: keyof ClientEvents;
-    once?: boolean;
+export default abstract class Event {
+    abstract name: string;
+    abstract eventType: keyof ClientEvents;
+    abstract once?: boolean;
 
-    execute(...args: any[]): void;
+    protected abstract execute(...args: any): void | Promise<void>;
 }

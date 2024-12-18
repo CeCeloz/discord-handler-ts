@@ -1,43 +1,47 @@
-import {Client, Collection, Events} from "discord.js";
+import {Client, ClientEvents, Collection, Events, Interaction, MessageComponentInteraction} from "discord.js";
 import fs from "fs";
 import path from "path";
 import {fileURLToPath, pathToFileURL} from "url";
-import {Component} from "../models/Component.js";
-import {Event} from "../models/Event.js";
+import Event from "../models/Event.js";
+import Components from "../models/Component.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const components: Collection<String, any> = new Collection();
+const components: Collection<String, Components> = new Collection();
 
-async function componentsEvent(client: Client) {
-    const event: Event = {
-        name: "componentsInteraction",
-        eventType: Events.InteractionCreate,
-        once: false,
-        execute: async (interaction) => {
-            if (interaction.isButton() || interaction.isAnySelectMenu() || interaction.isModalSubmit()) {
+class ComponentsEvent extends Event {
+    name = "componentsInteraction";
+    eventType: keyof ClientEvents = Events.InteractionCreate;
+    once = false;
 
-                const component: Component = components.get(interaction.customId);
+    async execute(interaction: MessageComponentInteraction) {
+        if (interaction.isButton() || interaction.isAnySelectMenu() || interaction.isModalSubmit()) {
 
-                if (!component) return;
+            const messageComponent = components.find((component) => interaction.customId.includes(component.customId!));
 
-                try {
-                    await component.execute(interaction);
-                } catch (error) {
-                    console.error(`Failed to execute slash command ${interaction.commandName}:`, error);
-                }
+            if (!messageComponent) return;
+
+            try {
+                await messageComponent.execute(interaction);
+            } catch (error) {
+                console.error(`Failed to execute slash command ${interaction}:`, error);
             }
         }
     }
+}
 
-    client.on(event.eventType, (...args) => event.execute(...args));
+async function componentsEvent(client: Client) {
+    client.on(Events.InteractionCreate, (interaction: Interaction) => {
+        new ComponentsEvent().execute(interaction as MessageComponentInteraction);
+    });
 }
 
 export async function loadComponents(client: Client, directory: string) {
-    componentsEvent(client);
+    await componentsEvent(client);
+
     const componentsPath = path.resolve(__dirname, directory);
-    const files = fs.readdirSync(componentsPath, {recursive: true})
-    const tsFiles = files.map(file => file.toString()).filter(file => file.endsWith('.ts'));
+    const files = fs.readdirSync(componentsPath, {recursive: true});
+    const tsFiles = files.map(file => file.toString()).filter(file => file.endsWith(".ts") || file.endsWith(".js"));
 
     for (const file of tsFiles) {
         try {
@@ -46,17 +50,20 @@ export async function loadComponents(client: Client, directory: string) {
 
             for (const key in componentsModule) {
                 const component = componentsModule[key];
-                if (!component.customId || !component.execute) {
-                    console.warn(`Component at ${file} is missing required properties.`);
-                    continue;
-                }
 
-                components.set(component.customId, component);
-                console.log(`Loaded component: ${component.customId}`);
+                if (!(typeof component === 'function' && !!component.prototype && component.prototype.constructor === component)) continue;
+
+                const componentInstance = new component();
+
+                if (!componentInstance.customId || !componentInstance.execute) continue;
+
+                components.set(componentInstance.customId, componentInstance);
+
+                console.log(`Loaded component: ${componentInstance.customId}`);
             }
 
         } catch (error) {
-            console.error(`Failed to load slash command ${file}:`, error);
+            console.error(`Failed to load component ${file}:`, error);
         }
     }
 }
